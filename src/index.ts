@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { backgroundTaskService } from './services/backgroundTask';
 import customerRoutes from './routes/customers';
 import chargeRoutes from './routes/charges';
+import paymentIntentRoutes from './routes/paymentIntents';
+import setupIntentRoutes from './routes/setupIntents';
 
 dotenv.config();
 
@@ -25,6 +27,12 @@ app.use('/customers', customerRoutes);
 
 // Charge routes
 app.use('/charges', chargeRoutes);
+
+// Payment Intent routes
+app.use('/payment-intents', paymentIntentRoutes);
+
+// Setup Intent routes
+app.use('/setup-intents', setupIntentRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: Function) => {
