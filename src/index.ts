@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { backgroundTaskService } from './services/backgroundTask';
+import customerRoutes from './routes/customers';
 
 dotenv.config();
 
@@ -17,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req: Request, res: Response) => {
     res.json({ message: 'Welcome to the TypeScript Express API!' });
 });
+
+// Customer routes
+app.use('/customers', customerRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: Function) => {
