@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { backgroundTaskService } from './services/backgroundTask';
 import customerRoutes from './routes/customers';
+import chargeRoutes from './routes/charges';
 
 dotenv.config();
 
@@ -21,6 +22,9 @@ app.get('/', (req: Request, res: Response) => {
 
 // Customer routes
 app.use('/customers', customerRoutes);
+
+// Charge routes
+app.use('/charges', chargeRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: Function) => {
