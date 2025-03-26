@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { db } from '../config/database';
-import { stripeEvents } from '../db/schema';
+import { db } from '../../config/database';
+import { stripeEvents } from '../../db/schema';
 import { eq, asc } from 'drizzle-orm';
 import Stripe from 'stripe';
 

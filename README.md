@@ -7,6 +7,7 @@ A TypeScript Express API that replays Stripe events and maintains state for vari
 - Event-based state management for Stripe objects
 - RESTful API endpoints for various Stripe resources
 - Background task service for polling Stripe events
+- Webhook endpoint for real-time event processing
 - TypeScript support with type safety
 - PostgreSQL database with Drizzle ORM
 - Express.js with middleware support
@@ -16,6 +17,7 @@ A TypeScript Express API that replays Stripe events and maintains state for vari
 - Node.js (v14 or higher)
 - PostgreSQL database
 - Stripe API key
+- Stripe webhook secret
 
 ## Environment Variables
 
@@ -53,6 +55,15 @@ npm run dev
 ```
 
 ## API Endpoints
+
+### Webhook Endpoint
+
+- `POST /webhooks` - Receive and process Stripe webhook events
+  - Validates Stripe signature using `STRIPE_WEBHOOK_SECRET`
+  - Saves events to database with proper type safety
+  - Returns 200 status on success
+  - Uses raw body parsing for signature verification
+  - Handles all Stripe event types automatically
 
 ### Core Resources
 
@@ -224,6 +235,23 @@ The application handles various Stripe event types for each resource:
 ### Application Fees
 - `application_fee.created`
 - `application_fee.refunded`
+
+## Event Sources
+
+The application receives Stripe events from two sources:
+
+1. **Webhook Endpoint** (`/webhooks`)
+   - Real-time event processing
+   - Validates Stripe signatures using environment variable
+   - Immediate event storage with type safety
+   - Handles all Stripe object types
+   - Uses raw body parsing for secure signature verification
+
+2. **Background Task**
+   - Polls Stripe API for events
+   - Ensures no events are missed
+   - Handles webhook failures
+   - Provides backup event collection
 
 ## Development
 

@@ -2,28 +2,29 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { backgroundTaskService } from './services/backgroundTask';
-import customerRoutes from './routes/customers';
-import chargeRoutes from './routes/charges';
-import paymentIntentRoutes from './routes/paymentIntents';
-import setupIntentRoutes from './routes/setupIntents';
-import subscriptionRoutes from './routes/subscriptions';
-import invoiceRoutes from './routes/invoices';
-import paymentMethodRoutes from './routes/paymentMethods';
-import refundRoutes from './routes/refunds';
-import disputeRoutes from './routes/disputes';
-import balanceTransactionRoutes from './routes/balanceTransactions';
-import payoutRoutes from './routes/payouts';
-import webhookEndpointRoutes from './routes/webhookEndpoints';
-import productRoutes from './routes/products';
-import priceRoutes from './routes/prices';
-import couponRoutes from './routes/coupons';
-import promotionCodeRoutes from './routes/promotionCodes';
-import taxRateRoutes from './routes/taxRates';
-import taxIdRoutes from './routes/taxIds';
-import fileLinkRoutes from './routes/fileLinks';
-import reviewRoutes from './routes/reviews';
-import transferReversalRoutes from './routes/transferReversals';
-import applicationFeeRoutes from './routes/applicationFees';
+import customerRoutes from './routes/resources/customers';
+import chargeRoutes from './routes/resources/charges';
+import paymentIntentRoutes from './routes/resources/paymentIntents';
+import setupIntentRoutes from './routes/resources/setupIntents';
+import subscriptionRoutes from './routes/resources/subscriptions';
+import invoiceRoutes from './routes/resources/invoices';
+import paymentMethodRoutes from './routes/resources/paymentMethods';
+import refundRoutes from './routes/resources/refunds';
+import disputeRoutes from './routes/resources/disputes';
+import balanceTransactionRoutes from './routes/resources/balanceTransactions';
+import payoutRoutes from './routes/resources/payouts';
+import webhookEndpointRoutes from './routes/resources/webhookEndpoints';
+import productRoutes from './routes/resources/products';
+import priceRoutes from './routes/resources/prices';
+import couponRoutes from './routes/resources/coupons';
+import promotionCodeRoutes from './routes/resources/promotionCodes';
+import taxRateRoutes from './routes/resources/taxRates';
+import taxIdRoutes from './routes/resources/taxIds';
+import fileLinkRoutes from './routes/resources/fileLinks';
+import reviewRoutes from './routes/resources/reviews';
+import transferReversalRoutes from './routes/resources/transferReversals';
+import applicationFeeRoutes from './routes/resources/applicationFees';
+import webhookRoutes from './routes/webhooks';
 
 dotenv.config();
 
@@ -105,6 +106,9 @@ app.use('/transfer-reversals', transferReversalRoutes);
 
 // Application Fee routes
 app.use('/application-fees', applicationFeeRoutes);
+
+// Webhook route - must be raw body for signature verification
+app.use('/webhooks', webhookRoutes);
 
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: Function) => {
